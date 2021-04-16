@@ -1,6 +1,7 @@
 package nl.stagesync.stagesync.exception;
 
 public class NotAuthorizedException extends RuntimeException{
+
     public NotAuthorizedException() {
         super();
     }

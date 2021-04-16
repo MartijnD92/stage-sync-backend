@@ -1,0 +1,73 @@
+@import 'config';
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	font-size: 16px;
+}
+
+body {
+	height: 100vh;
+	width: 100%;
+	font-family: 'Josefin Sans', serif;
+	font-size: $font-body--primary;
+	color: $color-body--primary;
+	background: linear-gradient(45deg, #4f5b92, #c75a67, #ffd6d6) fixed;
+}
+
+header {
+	a {
+		text-decoration: none;
+		color: #f0f0f0;
+	}
+}
+
+// .container {
+// 	height: 100vh;
+// 	display: grid;
+// 	grid-template-areas: 'aside main';
+// 	grid-template-rows: 3.5em 1fr;
+// 	grid-template-columns: 200px 1fr;
+// }
+
+// aside {
+// 	grid-area: aside;
+// }
+// main {
+// 	grid-area: main;
+// 	display: flex;
+// 	justify-content: flex-start;
+// 	align-items: center;
+// 	flex-direction: column;
+// }
+
+.search-bar {
+	height: 2em;
+	width: 500px;
+}
+
+.search-bar__input {
+	height: 100%;
+	width: 80%;
+	padding: 0 1em;
+	border: 0;
+	border-radius: 500px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	background: #ddd;
+}
+
+.search-bar__btn {
+	height: 100%;
+	width: 20%;
+	padding: 0 1em;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}

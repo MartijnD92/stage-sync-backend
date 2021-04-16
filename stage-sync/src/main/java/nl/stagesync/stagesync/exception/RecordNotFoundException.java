@@ -1,6 +1,7 @@
 package nl.stagesync.stagesync.exception;
 
-public class RecordNotFoundException extends RuntimeException{
+public class RecordNotFoundException extends RuntimeException {
+
     public RecordNotFoundException() {
         super();
     }

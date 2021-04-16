@@ -1,0 +1,33 @@
+.navbar {
+  --margin-top: 3.5rem;
+  height: 3.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+.navbar--primary {
+  margin: 3.5rem 13rem;
+}
+.navbar--primary .navbar__btn-container {
+  margin-left: 5rem;
+}
+.navbar--secondary {
+  margin: 3.5rem 4rem 0 5.1875rem;
+}
+.navbar .btn {
+  margin: 0.5em;
+}
+.navbar__link {
+  position: relative;
+  margin: 0 1em;
+}
+.navbar__link .active::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  height: 3px;
+  background: #F0F0F0;
+}

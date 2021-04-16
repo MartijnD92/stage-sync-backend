@@ -1,0 +1,48 @@
+@import '../../../css/config';
+
+main {
+	margin: 0 13rem;
+}
+
+.teaser {
+	display: grid;
+	grid-template-columns: 445px 1fr;
+	color: $color-body--secondary;
+	&--left {
+		width: 445px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	&--right {
+		width: 500px;
+		height: 500px;
+	}
+
+	&__title {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+	}
+	&__subtitle {
+		font-size: 1.5rem;
+		opacity: 0.9;
+		margin-bottom: 1.75rem;
+	}
+
+	.btn {
+		background: $bg-btn--secondary;
+		border-color: $bg-btn--secondary;
+
+		&:hover {
+			background: $bg-btn--secondary-alt;
+			border-color: $bg-btn--secondary-alt;
+		}
+	}
+
+	.spotlight {
+		width: 500px;
+		height: 500px;
+		transform: translateX(30%);
+	}
+}

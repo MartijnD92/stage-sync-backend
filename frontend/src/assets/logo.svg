@@ -1,0 +1,24 @@
+<svg id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_16" data-name="Rectangle 16" width="50" height="50" rx="9" transform="translate(101 38)" fill="#0a2540" stroke="#0a2540" stroke-linecap="round" stroke-width="3"/>
+    </clipPath>
+  </defs>
+  <g id="logo-2" data-name="logo" transform="translate(-101 -38)" style="isolation: isolate">
+    <g id="Rectangle_24" data-name="Rectangle 24" transform="translate(101 38)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="50" height="50" rx="10" stroke="none"/>
+      <rect x="0.5" y="0.5" width="49" height="49" rx="9.5" fill="none"/>
+    </g>
+    <g id="Mask_Group_2" data-name="Mask Group 2" clip-path="url(#clip-path)">
+      <g id="Group_14" data-name="Group 14" transform="translate(1)">
+        <path id="Path_18" data-name="Path 18" d="M0,7.674l50,50H0Z" transform="translate(101 30.326)" fill="#ffcf0d" style="mix-blend-mode: multiply;isolation: isolate"/>
+        <path id="Path_19" data-name="Path 19" d="M48,7.674l-48,50H48Z" transform="translate(101 30.326)" fill="#ffcf0d" style="mix-blend-mode: multiply;isolation: isolate"/>
+      </g>
+    </g>
+    <text id="S" transform="translate(115 48)" fill="#0a2540" font-size="40" font-family="Josefin Sans" font-weight="700" letter-spacing="-0.05em"><tspan x="0" y="30">S</tspan></text>
+    <g id="Rectangle_17" data-name="Rectangle 17" transform="translate(101 38)" fill="none" stroke="#0a2540" stroke-linecap="round" stroke-width="3">
+      <rect width="50" height="50" rx="9" stroke="none"/>
+      <rect x="1.5" y="1.5" width="47" height="47" rx="7.5" fill="none"/>
+    </g>
+  </g>
+</svg>
