@@ -21,7 +21,7 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Artist getArtist(long id) {
+    public Artist getArtistById(long id) {
         Optional<Artist> artist = artistRepository.findById(id);
         if (artist.isEmpty()) {
             throw new RecordNotFoundException("No artist with id " + id);

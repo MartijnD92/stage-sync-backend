@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/api/v1")
 public class ArtistController {
 
     @Autowired
@@ -17,19 +19,18 @@ public class ArtistController {
 
     @GetMapping("/artists")
     public ResponseEntity<Object> getArtists() {
-        List<Artist> artists = artistService.getAllArtists();
-        return new ResponseEntity<>(artists, HttpStatus.OK);
+        return ResponseEntity.ok(artistService.getAllArtists());
     }
 
     @GetMapping("/artists/names/{name}")
     public ResponseEntity<Object> getArtists(@PathVariable("name") String name) {
         List<Artist> artists = artistService.getArtistsNameStartsWith(name);
-        return new ResponseEntity<>(artists, HttpStatus.OK);
+        return ResponseEntity.ok(artists);
     }
 
     @GetMapping("/artists/{id}")
-    public ResponseEntity<Object> getArtist(@PathVariable("id") long id) {
-        return new ResponseEntity<>(artistService.getArtist(id), HttpStatus.OK);
+    public ResponseEntity<Object> getArtistById(@PathVariable("id") long id) {
+        return ResponseEntity.ok(artistService.getArtistById(id));
     }
 
     @PostMapping("/artists")

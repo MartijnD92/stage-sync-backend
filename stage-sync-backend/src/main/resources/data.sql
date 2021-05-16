@@ -9,5 +9,9 @@ INSERT INTO authorities (username, authority) VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO authorities (username, authority) VALUES ('martijn', 'ROLE_USER');
 INSERT INTO authorities (username, authority) VALUES ('martijn', 'ROLE_ADMIN');
 
-INSERT INTO artist (name, price, has_sound_engineer, genre) VALUES ('Metallica', 1000000, true, 'Heavy Metal');
+INSERT INTO artist (name, price, has_sound_engineer, genre) VALUES ('The Hillbilly Moonshiners', 1500, true, 'Bluegrass');
 INSERT INTO artist (name, price, has_sound_engineer, genre) VALUES ('The Beatles', 5000000, true, 'Pop');
+
+INSERT INTO gig (name, venue, location, date, invoice_status, fee, duration, is_confirmed, has_passed, artist_id)
+VALUES ('Zwarte Cross', 'De Schans', 'Lichtenvoorde', '2021-08-30 19:00', 'NOT_SENT', 1500, 90, true, false, 1);
+
