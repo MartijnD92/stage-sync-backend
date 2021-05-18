@@ -1,6 +1,6 @@
 package nl.stagesync.stagesync.model;
 
-public enum InvoiceStatus {
+public enum EInvoiceStatus {
     NOT_SENT,
     SENT,
     PAID

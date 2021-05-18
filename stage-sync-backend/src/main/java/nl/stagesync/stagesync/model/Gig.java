@@ -1,7 +1,6 @@
 package nl.stagesync.stagesync.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -56,7 +55,7 @@ public class Gig {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "invoice_status")
-    private InvoiceStatus invoiceStatus;
+    private EInvoiceStatus invoiceStatus;
 
     @ManyToOne
     @JsonIgnore

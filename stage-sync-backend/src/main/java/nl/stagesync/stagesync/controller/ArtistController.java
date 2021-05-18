@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class ArtistController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class ArtistController {
     }
 
     @GetMapping("/artists/names/{name}")
-    public ResponseEntity<Object> getArtists(@PathVariable("name") String name) {
+    public ResponseEntity<Object> findArtistsByName(@PathVariable("name") String name) {
         List<Artist> artists = artistService.getArtistsNameStartsWith(name);
         return ResponseEntity.ok(artists);
     }

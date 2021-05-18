@@ -2,7 +2,9 @@ package nl.stagesync.stagesync.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,10 +33,13 @@ public class Artist {
     @Column
     private boolean hasSoundEngineer;
 
-
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "artist")
+    @JsonIgnoreProperties("artist")
     private List<Gig> gigs;
+
+    @ManyToMany
+    private Set<User> users;
 }

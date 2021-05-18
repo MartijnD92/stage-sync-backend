@@ -1,6 +1,7 @@
 package nl.stagesync.stagesync.repository;
 
-import nl.stagesync.stagesync.model.User;
+import nl.stagesync.stagesync.model.ERole;
+import nl.stagesync.stagesync.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -11,10 +12,8 @@ import java.util.Optional;
  * Hier kan meer informatie over gevonden worden:
  * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Optional<User> findByUsername(String username);
-    Boolean existsByUsername(String username);
-    Boolean existsByEmail(String email);
+    Optional<Role> findByName(ERole name);
 
 }

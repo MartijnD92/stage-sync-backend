@@ -6,14 +6,12 @@ import nl.stagesync.stagesync.repository.GigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class GigServiceImpl implements GigService{
+public class GigServiceImpl implements GigService {
 
     @Autowired
     GigRepository gigRepository;
@@ -35,7 +33,7 @@ public class GigServiceImpl implements GigService{
         }
         else {
             if (!artist.isEmpty()) {
-                return gigRepository.findAllByArtist(artist);
+                return gigRepository.findAllByArtistName(artist);
             }
             else {
                 return gigRepository.findAll();
@@ -53,18 +51,18 @@ public class GigServiceImpl implements GigService{
     }
 
     @Override
-    public List<Gig> getGigsVenueStartsWith(String name) {
-        return gigRepository.findAllByVenueStartingWith(name);
+    public List<Gig> getGigsByArtist(String artist) {
+        return gigRepository.findAllByArtistName(artist);
     }
 
     @Override
-    public Long save(Map<String, String> fields) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(fields.get("date"), formatter);
-        Gig newGig = new Gig();
-        newGig.setDate(dateTime);
-        Gig storedGig = gigRepository.save(newGig);
-        return storedGig.getId();
+    public List<Gig> getGigsByVenue(String venue) {
+        return gigRepository.findAllByVenue(venue);
+    }
+
+    @Override
+    public void save(Gig gig) {
+        gigRepository.save(gig);
     }
 
     @Override

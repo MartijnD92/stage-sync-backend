@@ -3,14 +3,14 @@ package nl.stagesync.stagesync.service;
 import nl.stagesync.stagesync.model.Gig;
 
 import java.util.List;
-import java.util.Map;
 
 public interface GigService {
     List<Gig> getGigs();
     List<Gig> getGigs(String venue, String artist);
     Gig getGigById(long id);
-    List<Gig> getGigsVenueStartsWith(String venue);
-    Long save(Map<String, String> fields);
+    List<Gig> getGigsByArtist(String artist);
+    List<Gig> getGigsByVenue(String venue);
+    void save(Gig gig);
     void deleteById(long id);
 
 }
