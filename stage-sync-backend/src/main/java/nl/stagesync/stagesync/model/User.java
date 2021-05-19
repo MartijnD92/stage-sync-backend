@@ -27,6 +27,8 @@ public class User {
     @Column(columnDefinition = "serial")
     private long id;
     private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
 
@@ -45,8 +47,10 @@ public class User {
 
 
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String firstName, String lastName, String password) {
         this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
