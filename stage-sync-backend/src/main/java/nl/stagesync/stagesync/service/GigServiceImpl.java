@@ -1,9 +1,7 @@
 package nl.stagesync.stagesync.service;
 
 import nl.stagesync.stagesync.exception.RecordNotFoundException;
-import nl.stagesync.stagesync.model.Artist;
 import nl.stagesync.stagesync.model.Gig;
-import nl.stagesync.stagesync.model.User;
 import nl.stagesync.stagesync.payload.request.CreateGigRequest;
 import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.repository.GigRepository;
@@ -12,51 +10,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class GigServiceImpl implements GigService {
 
 
     private GigRepository gigRepository;
-    private ArtistServiceImpl artistService;
 
     @Autowired
     public void setGigRepository(GigRepository gigRepository) {
         this.gigRepository = gigRepository;
     }
 
-    @Autowired
-    public void setArtistService(ArtistServiceImpl artistService) {
-        this.artistService = artistService;
-    }
-
     @Override
     public List<Gig> getGigs() {
-        return gigRepository.findAll();
-    }
-
-    @Override
-    public List<Gig> getGigs(String venue, String artist) {
-        if (!venue.isEmpty()) {
-            if (!artist.isEmpty()) {
-                return gigRepository.findAllByVenueAndArtist(venue, artist);
-            }
-            else {
-                return gigRepository.findAllByVenue(venue);
-            }
-        }
-        else {
-            if (!artist.isEmpty()) {
-                return gigRepository.findAllByArtistName(artist);
-            }
-            else {
-                return gigRepository.findAll();
-            }
-        }
+       return  gigRepository.findAll();
     }
 
     @Override
@@ -79,7 +50,7 @@ public class GigServiceImpl implements GigService {
     }
 
     @Override
-    public ResponseEntity<MessageResponse> createGig(CreateGigRequest createGigRequest, long artistId) {
+    public ResponseEntity<MessageResponse> createGig(CreateGigRequest createGigRequest) {
 
         Gig gig = new Gig(
                 createGigRequest.getName(),
@@ -90,9 +61,9 @@ public class GigServiceImpl implements GigService {
                 createGigRequest.getFee(),
                 createGigRequest.getDuration(),
                 createGigRequest.isConfirmed(),
-                createGigRequest.getInvoiceStatus()
+                createGigRequest.getInvoiceStatus(),
+                createGigRequest.getArtist()
         );
-        gig.setArtist(artistService.getArtistById(artistId));
 
         gigRepository.save(gig);
 

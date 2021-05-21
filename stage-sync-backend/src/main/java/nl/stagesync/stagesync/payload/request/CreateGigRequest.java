@@ -1,5 +1,6 @@
 package nl.stagesync.stagesync.payload.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.stagesync.stagesync.model.Artist;
 import nl.stagesync.stagesync.model.EInvoiceStatus;
 import javax.validation.constraints.NotBlank;
@@ -28,7 +29,7 @@ public class CreateGigRequest {
 
     private float duration;
 
-    private boolean isConfirmed;
+    private boolean confirmed;
 
     private boolean hasPassed;
 
@@ -94,11 +95,11 @@ public class CreateGigRequest {
     }
 
     public boolean isConfirmed() {
-        return isConfirmed;
+        return confirmed;
     }
 
-    public void setConfirmed(boolean isConfirmed) {
-        this.isConfirmed = isConfirmed;
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public boolean isHasPassed() {

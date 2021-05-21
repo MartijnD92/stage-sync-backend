@@ -9,11 +9,10 @@ import java.util.List;
 
 public interface GigService {
     List<Gig> getGigs();
-    List<Gig> getGigs(String venue, String artist);
     Gig getGigById(long id);
     List<Gig> getGigsByArtist(String artist);
     List<Gig> getGigsByVenue(String venue);
-    ResponseEntity<MessageResponse> createGig(CreateGigRequest createGigRequest, long artistId);
+    ResponseEntity<MessageResponse> createGig(CreateGigRequest createGigRequest);
     void deleteById(long id);
 
 }

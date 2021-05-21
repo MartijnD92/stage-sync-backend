@@ -39,8 +39,8 @@ public class GigController {
     }
 
     @PostMapping("/gigs")
-    public ResponseEntity<MessageResponse> createGig(@RequestBody CreateGigRequest createGigRequest, long artistId) {
-        return gigService.createGig(createGigRequest, artistId);
+    public ResponseEntity<MessageResponse> createGig(@RequestBody CreateGigRequest createGigRequest) {
+        return gigService.createGig(createGigRequest);
     }
 
     @DeleteMapping("/gigs/{id}")

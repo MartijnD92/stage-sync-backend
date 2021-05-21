@@ -1,11 +1,7 @@
 package nl.stagesync.stagesync.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -40,23 +36,26 @@ public class Gig {
     private float duration;
 
     @Column(name="is_confirmed")
-    private boolean isConfirmed;
+    private boolean confirmed;
 
     @Column(name="has_passed")
-    private boolean hasPassed;
+    private boolean passed;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "invoice_status")
     private EInvoiceStatus invoiceStatus;
 
     @ManyToOne
+    @JoinTable (name = "gig_artist",
+            joinColumns = @JoinColumn(name = "gig_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
     @JsonIgnore
     private Artist artist;
 
     public Gig() {
     }
 
-    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, boolean isConfirmed, EInvoiceStatus invoiceStatus) {
+    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, boolean confirmed, EInvoiceStatus invoiceStatus, Artist artist) {
         this.name = name;
         this.venue = venue;
         this.room = room;
@@ -64,8 +63,9 @@ public class Gig {
         this.date = date;
         this.fee = fee;
         this.duration = duration;
-        this.isConfirmed = isConfirmed;
+        this.confirmed = confirmed;
         this.invoiceStatus = invoiceStatus;
+        this.artist = artist;
     }
 
     public long getId() {
@@ -133,19 +133,19 @@ public class Gig {
     }
 
     public boolean isConfirmed() {
-        return isConfirmed;
+        return confirmed;
     }
 
     public void setConfirmed(boolean confirmed) {
-        isConfirmed = confirmed;
+        this.confirmed = confirmed;
     }
 
-    public boolean isHasPassed() {
-        return hasPassed;
+    public boolean hasPassed() {
+        return passed;
     }
 
-    public void setHasPassed(boolean hasPassed) {
-        this.hasPassed = hasPassed;
+    public void setHasPassed(boolean passed) {
+        this.passed = passed;
     }
 
     public EInvoiceStatus getInvoiceStatus() {
