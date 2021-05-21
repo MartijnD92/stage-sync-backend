@@ -6,7 +6,6 @@ import nl.stagesync.stagesync.model.User;
 import nl.stagesync.stagesync.repository.UserRepository;
 import nl.stagesync.stagesync.service.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

@@ -1,80 +1,41 @@
-package nl.stagesync.stagesync.model;
+package nl.stagesync.stagesync.payload.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.*;
+import nl.stagesync.stagesync.model.Artist;
+import nl.stagesync.stagesync.model.EInvoiceStatus;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "gig")
-public class Gig {
+public class CreateGigRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column
+    @NotBlank
+    @Size(min = 1, max = 50)
     private String name;
 
-    @Column
+    @Size(min = 1, max = 50)
     private String venue;
 
-    @Column
+    @Size(min = 1, max = 50)
     private String room;
 
-    @Column
+    @Size(min = 1, max = 50)
     private String location;
 
-    @Column
+    @NotBlank
     private LocalDateTime date;
 
-    @Column
     private int fee;
 
-    @Column
     private float duration;
 
-    @Column(name="is_confirmed")
     private boolean isConfirmed;
 
-    @Column(name="has_passed")
     private boolean hasPassed;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "invoice_status")
     private EInvoiceStatus invoiceStatus;
 
-    @ManyToOne
-    @JsonIgnore
+    @NotBlank
     private Artist artist;
-
-    public Gig() {
-    }
-
-    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, boolean isConfirmed, EInvoiceStatus invoiceStatus) {
-        this.name = name;
-        this.venue = venue;
-        this.room = room;
-        this.location = location;
-        this.date = date;
-        this.fee = fee;
-        this.duration = duration;
-        this.isConfirmed = isConfirmed;
-        this.invoiceStatus = invoiceStatus;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -136,8 +97,8 @@ public class Gig {
         return isConfirmed;
     }
 
-    public void setConfirmed(boolean confirmed) {
-        isConfirmed = confirmed;
+    public void setConfirmed(boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
     }
 
     public boolean isHasPassed() {

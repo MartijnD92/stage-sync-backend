@@ -1,12 +1,15 @@
 package nl.stagesync.stagesync.controller;
 
 import nl.stagesync.stagesync.model.Artist;
+import nl.stagesync.stagesync.payload.request.CreateArtistRequest;
+import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -14,12 +17,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class ArtistController {
 
-    @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    public void setArtistService(ArtistService artistService) {
+        this.artistService = artistService;
+    }
+
     @GetMapping("/artists")
-    public ResponseEntity<Object> getArtists() {
-        return ResponseEntity.ok(artistService.getAllArtists());
+    public ResponseEntity<Object> getAllArtists(Principal principal) {
+        return ResponseEntity.ok(artistService.getAllArtists(principal));
     }
 
     @GetMapping("/artists/names/{name}")
@@ -34,9 +41,8 @@ public class ArtistController {
     }
 
     @PostMapping("/artists")
-    public ResponseEntity<Object> createArtist(@RequestBody Artist artist) {
-        artistService.save(artist);
-        return new ResponseEntity<>("Artist created", HttpStatus.CREATED);
+    public ResponseEntity<MessageResponse> createArtist(@RequestBody CreateArtistRequest createArtistRequest, Principal principal) {
+       return artistService.createArtist(createArtistRequest, principal);
     }
 
     @DeleteMapping("/artists/{id}")

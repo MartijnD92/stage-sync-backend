@@ -1,6 +1,9 @@
 package nl.stagesync.stagesync.controller;
 
 import nl.stagesync.stagesync.model.Gig;
+import nl.stagesync.stagesync.payload.request.CreateArtistRequest;
+import nl.stagesync.stagesync.payload.request.CreateGigRequest;
+import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.service.GigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class GigController {
 
+    private GigService gigService;
+
     @Autowired
-    GigService gigService;
+    public void setGigService(GigService gigService) {
+        this.gigService = gigService;
+    }
 
     @GetMapping("/gigs")
     public ResponseEntity<Object> getGigs() {
@@ -32,9 +39,8 @@ public class GigController {
     }
 
     @PostMapping("/gigs")
-    public ResponseEntity<Object> createGig(@RequestBody Gig gig) {
-        gigService.save(gig);
-        return new ResponseEntity<>("Gig created", HttpStatus.CREATED);
+    public ResponseEntity<MessageResponse> createGig(@RequestBody CreateGigRequest createGigRequest, long artistId) {
+        return gigService.createGig(createGigRequest, artistId);
     }
 
     @DeleteMapping("/gigs/{id}")

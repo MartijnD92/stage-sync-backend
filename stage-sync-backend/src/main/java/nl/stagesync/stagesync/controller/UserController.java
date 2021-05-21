@@ -15,7 +15,6 @@ import java.util.Collection;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -29,7 +28,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    // DIT WERKT!!!
     @GetMapping("/user/{username}")
     @PreAuthorize("hasRole('USER') and #username == authentication.principal.username")
     public ResponseEntity<Object> getUser(@PathVariable String username) {
