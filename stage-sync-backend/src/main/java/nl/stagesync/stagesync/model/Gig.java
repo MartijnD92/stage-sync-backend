@@ -1,7 +1,6 @@
 package nl.stagesync.stagesync.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,14 +28,24 @@ public class Gig {
     @Column
     private LocalDateTime date;
 
+    @Column(name = "artist_name")
+    private String artistName;
+
     @Column
     private int fee;
 
     @Column
     private float duration;
 
-    @Column(name="is_confirmed")
-    private boolean confirmed;
+    @Column(name = "tickets_total")
+    private int ticketsTotal;
+
+    @Column(name = "tickets_sold")
+    private int ticketsSold;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="confirmation_status")
+    private EConfirmationStatus confirmationStatus;
 
     @Column(name="has_passed")
     private boolean passed;
@@ -55,7 +64,7 @@ public class Gig {
     public Gig() {
     }
 
-    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, boolean confirmed, EInvoiceStatus invoiceStatus, Artist artist) {
+    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, int ticketsTotal, EConfirmationStatus confirmationStatus, EInvoiceStatus invoiceStatus, Artist artist) {
         this.name = name;
         this.venue = venue;
         this.room = room;
@@ -63,7 +72,7 @@ public class Gig {
         this.date = date;
         this.fee = fee;
         this.duration = duration;
-        this.confirmed = confirmed;
+        this.confirmationStatus = confirmationStatus;
         this.invoiceStatus = invoiceStatus;
         this.artist = artist;
     }
@@ -132,12 +141,28 @@ public class Gig {
         this.duration = duration;
     }
 
-    public boolean isConfirmed() {
-        return confirmed;
+    public int getTicketsTotal() {
+        return ticketsTotal;
     }
 
-    public void setConfirmed(boolean confirmed) {
-        this.confirmed = confirmed;
+    public void setTicketsTotal(int ticketsTotal) {
+        this.ticketsTotal = ticketsTotal;
+    }
+
+    public int getTicketsSold() {
+        return ticketsSold;
+    }
+
+    public void setTicketsSold(int ticketsSold) {
+        this.ticketsSold = ticketsSold;
+    }
+
+    public EConfirmationStatus getConfirmationStatus() {
+        return confirmationStatus;
+    }
+
+    public void setconfirmationStatus(EConfirmationStatus confirmationStatus) {
+        this.confirmationStatus = confirmationStatus;
     }
 
     public boolean hasPassed() {
@@ -162,5 +187,13 @@ public class Gig {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }

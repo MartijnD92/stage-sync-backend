@@ -5,17 +5,19 @@ import nl.stagesync.stagesync.model.Gig;
 import nl.stagesync.stagesync.payload.request.CreateGigRequest;
 import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.repository.GigRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class GigServiceImpl implements GigService {
+
+
+    private static final Logger LOG = LoggerFactory.getLogger(GigServiceImpl.class);
 
 
     private GigRepository gigRepository;
@@ -40,7 +42,7 @@ public class GigServiceImpl implements GigService {
     }
 
     @Override
-    public List<Gig> getGigsByArtist(String artist) {
+    public List<Gig> getGigsByArtistName(String artist) {
         return gigRepository.findAllByArtistName(artist);
     }
 
@@ -60,10 +62,15 @@ public class GigServiceImpl implements GigService {
                 createGigRequest.getDate(),
                 createGigRequest.getFee(),
                 createGigRequest.getDuration(),
-                createGigRequest.isConfirmed(),
+                createGigRequest.getTicketsTotal(),
+                createGigRequest.getConfirmationStatus(),
                 createGigRequest.getInvoiceStatus(),
                 createGigRequest.getArtist()
         );
+
+        String artistName = createGigRequest.getArtist().getName();
+        gig.setArtistName(artistName);
+        LOG.info(gig.getArtistName());
 
         gigRepository.save(gig);
 

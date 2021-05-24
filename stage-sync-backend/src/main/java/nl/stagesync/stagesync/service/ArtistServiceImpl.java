@@ -1,29 +1,31 @@
 package nl.stagesync.stagesync.service;
 
+import nl.stagesync.stagesync.exception.NotAuthorizedException;
 import nl.stagesync.stagesync.exception.RecordNotFoundException;
 import nl.stagesync.stagesync.model.Artist;
+import nl.stagesync.stagesync.model.Rider;
 import nl.stagesync.stagesync.model.User;
 import nl.stagesync.stagesync.payload.request.CreateArtistRequest;
 import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.repository.ArtistRepository;
 import nl.stagesync.stagesync.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
 
     private ArtistRepository artistRepository;
     private UserServiceImpl userService;
+    private RiderServiceImpl riderService;
 
     @Autowired
     public void setArtistRepository(ArtistRepository artistRepository) {
@@ -33,6 +35,11 @@ public class ArtistServiceImpl implements ArtistService {
     @Autowired
     public void setUserService(UserServiceImpl userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setRiderService(RiderServiceImpl riderService) {
+        this.riderService = riderService;
     }
 
     @Override
@@ -55,18 +62,25 @@ public class ArtistServiceImpl implements ArtistService {
         return artistRepository.findAllByNameStartingWith(name);
     }
 
-    @Override
+        @Override
+//    public ResponseEntity<MessageResponse> createArtist(MultipartFile[] riders, CreateArtistRequest createArtistRequest, Principal principal) throws NoSuchAlgorithmException {
     public ResponseEntity<MessageResponse> createArtist(CreateArtistRequest createArtistRequest, Principal principal) {
 
         User currentUser = userService.getUserByUsername(principal.getName());
 
-        Artist artist = new Artist(
-                createArtistRequest.getName(),
-                createArtistRequest.getGenre(),
-                createArtistRequest.getPrice(),
-                createArtistRequest.hasSoundEngineer(),
-                createArtistRequest.getUsers()
-        );
+        Artist artist;
+        if (artistRepository.findArtistByName(createArtistRequest.getName()) == null) {
+            artist = new Artist(
+                    createArtistRequest.getName(),
+                    createArtistRequest.getGenre(),
+                    createArtistRequest.getPrice(),
+                    createArtistRequest.hasSoundEngineer(),
+                    createArtistRequest.getUsers()
+            );
+        } else {
+            artist = artistRepository.findArtistByName(createArtistRequest.getName());
+        }
+
 
         Set<User> users = new HashSet<>();
         if (artist.getUsers() != null) {
@@ -75,6 +89,13 @@ public class ArtistServiceImpl implements ArtistService {
         users.add(currentUser);
         artist.setUsers(users);
 
+//        riderService.addRiders(riders);
+//        List<Rider> allRiders = new ArrayList<>();
+//        if (artist.getRiders() != null) {
+//            allRiders.addAll(artist.getRiders());
+//        }
+//        allRiders.addAll(riderService.getAllRidersByArtistName(artist.getName()));
+//        artist.setRiders(allRiders);
         artistRepository.save(artist);
 
         return ResponseEntity.ok(new MessageResponse("Artist created successfully!"));

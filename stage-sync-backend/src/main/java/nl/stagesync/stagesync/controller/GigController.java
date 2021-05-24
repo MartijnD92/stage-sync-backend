@@ -30,7 +30,7 @@ public class GigController {
 
     @GetMapping("/gigs/artists/{artist}")
     public ResponseEntity<Object> findGigsByArtist(@PathVariable("artist") String artist) {
-        return ResponseEntity.ok(gigService.getGigsByArtist(artist));
+        return ResponseEntity.ok(gigService.getGigsByArtistName(artist));
     }
 
     @GetMapping("/gigs/{id}")

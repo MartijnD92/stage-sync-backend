@@ -29,8 +29,10 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    @PreAuthorize("hasRole('USER') and #username == authentication.principal.username")
+    @PreAuthorize("#username == authentication.principal.username")
     public ResponseEntity<Object> getUser(@PathVariable String username) {
         return ResponseEntity.ok().body(userService.getUserByUsername(username));
     }
+
+
 }

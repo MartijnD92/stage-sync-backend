@@ -6,10 +6,6 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "artist")
@@ -33,8 +29,17 @@ public class Artist {
 
     @OneToMany(
             fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "artist"
+    )
+    @JsonIgnoreProperties("artist")
+    private List<Rider> riders;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
-            mappedBy = "artist")
+            mappedBy = "artist"
+    )
     @JsonIgnoreProperties("artist")
     private List<Gig> gigs;
 
@@ -44,6 +49,20 @@ public class Artist {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     @JsonIgnore
     private Set<User> users;
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", genre='" + genre + '\'' +
+                ", price=" + price +
+                ", hasSoundEngineer=" + hasSoundEngineer +
+                ", riders=" + riders +
+                ", gigs=" + gigs +
+                ", users=" + users +
+                '}';
+    }
 
     public Artist() {
     }
@@ -110,5 +129,13 @@ public class Artist {
 
     public void setHasSoundEngineer(boolean hasSoundEngineer) {
         this.hasSoundEngineer = hasSoundEngineer;
+    }
+
+    public List<Rider> getRiders() {
+        return riders;
+    }
+
+    public void setRiders(List<Rider> riders) {
+        this.riders = riders;
     }
 }

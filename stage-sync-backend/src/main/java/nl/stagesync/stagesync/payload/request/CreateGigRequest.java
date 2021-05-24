@@ -1,7 +1,7 @@
 package nl.stagesync.stagesync.payload.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.stagesync.stagesync.model.Artist;
+import nl.stagesync.stagesync.model.EConfirmationStatus;
 import nl.stagesync.stagesync.model.EInvoiceStatus;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -29,7 +29,11 @@ public class CreateGigRequest {
 
     private float duration;
 
-    private boolean confirmed;
+    private int ticketsTotal;
+
+    private int ticketsSold;
+
+    private EConfirmationStatus confirmationStatus;
 
     private boolean hasPassed;
 
@@ -94,12 +98,28 @@ public class CreateGigRequest {
         this.duration = duration;
     }
 
-    public boolean isConfirmed() {
-        return confirmed;
+    public int getTicketsTotal() {
+        return ticketsTotal;
     }
 
-    public void setConfirmed(boolean confirmed) {
-        this.confirmed = confirmed;
+    public void setTicketsTotal(int ticketsTotal) {
+        this.ticketsTotal = ticketsTotal;
+    }
+
+    public int getTicketsSold() {
+        return ticketsSold;
+    }
+
+    public void setTicketsSold(int ticketsSold) {
+        this.ticketsSold = ticketsSold;
+    }
+
+    public EConfirmationStatus getConfirmationStatus() {
+        return confirmationStatus;
+    }
+
+    public void setConfirmationStatus(EConfirmationStatus confirmationStatus) {
+        this.confirmationStatus = confirmationStatus;
     }
 
     public boolean isHasPassed() {

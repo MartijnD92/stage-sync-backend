@@ -1,7 +1,6 @@
 package nl.stagesync.stagesync.service;
 
 import nl.stagesync.stagesync.exception.RecordNotFoundException;
-import nl.stagesync.stagesync.exception.UsernameNotFoundException;
 import nl.stagesync.stagesync.model.User;
 import nl.stagesync.stagesync.repository.UserRepository;
 import nl.stagesync.stagesync.service.security.jwt.JwtUtils;

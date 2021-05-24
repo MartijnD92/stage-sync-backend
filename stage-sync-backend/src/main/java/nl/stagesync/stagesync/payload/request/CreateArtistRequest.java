@@ -22,7 +22,6 @@ public class CreateArtistRequest {
 
     private Set<User> users;
 
-
     public String getName() {
         return name;
     }
@@ -62,4 +61,5 @@ public class CreateArtistRequest {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
 }
