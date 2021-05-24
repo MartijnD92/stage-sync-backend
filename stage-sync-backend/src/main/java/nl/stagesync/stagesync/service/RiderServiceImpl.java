@@ -1,6 +1,7 @@
 package nl.stagesync.stagesync.service;
 
 import nl.stagesync.stagesync.model.Rider;
+import nl.stagesync.stagesync.repository.ArtistRepository;
 import nl.stagesync.stagesync.repository.RiderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,16 @@ import java.util.List;
 public class RiderServiceImpl implements RiderService {
 
     private RiderRepository riderRepository;
+    private ArtistRepository artistRepository;
 
     @Autowired
     public void setRiderRepository(RiderRepository riderRepository) {
         this.riderRepository = riderRepository;
+    }
+
+    @Autowired
+    public void setArtistRepository(ArtistRepository artistRepository) {
+        this.artistRepository = artistRepository;
     }
 
     @Override

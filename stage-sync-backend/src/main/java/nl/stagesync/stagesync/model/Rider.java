@@ -70,6 +70,14 @@ public class Rider {
         this.size = size;
     }
 
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     public String getHash() {
         return hash;
     }

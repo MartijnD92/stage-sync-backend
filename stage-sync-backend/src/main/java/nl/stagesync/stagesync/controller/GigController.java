@@ -34,7 +34,7 @@ public class GigController {
     }
 
     @GetMapping("/gigs/{id}")
-    public ResponseEntity<Object> getGigById(@PathVariable Long id) {
+    public ResponseEntity<Object> getGigById(@PathVariable long id) {
         return ResponseEntity.ok(gigService.getGigById(id));
     }
 
@@ -44,7 +44,7 @@ public class GigController {
     }
 
     @DeleteMapping("/gigs/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteById(@PathVariable long id) {
         gigService.deleteById(id);
         return new ResponseEntity<>("Gig deleted", HttpStatus.OK);
     }

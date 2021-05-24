@@ -54,7 +54,7 @@ public class ArtistController {
     }
 
     @PostMapping(value = "/artists/riders", consumes = "multipart/form-data")
-    public void addRiderToArtist(Long artistId, @RequestPart("rider") MultipartFile[] multipartFiles) throws IOException, NoSuchAlgorithmException {
+    public void addRiderToArtist(@RequestPart("rider") MultipartFile[] multipartFiles) throws IOException, NoSuchAlgorithmException {
         riderService.addRiders(multipartFiles);
     }
 
