@@ -28,9 +28,6 @@ public class Gig {
     @Column
     private LocalDateTime date;
 
-    @Column(name = "artist_name")
-    private String artistName;
-
     @Column
     private int fee;
 
@@ -187,13 +184,5 @@ public class Gig {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
-    }
-
-    public String getArtistName() {
-        return artistName;
-    }
-
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
     }
 }

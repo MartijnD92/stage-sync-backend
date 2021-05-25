@@ -18,6 +18,9 @@ public class CreateArtistRequest {
     @Size(min = 1, max = 50)
     private int price;
 
+    @Size(min = 1, max = 250)
+    private String bio;
+
     private boolean hasSoundEngineer;
 
     private Set<User> users;
@@ -44,6 +47,14 @@ public class CreateArtistRequest {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public boolean hasSoundEngineer() {

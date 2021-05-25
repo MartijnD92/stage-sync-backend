@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
-    List<Artist> findAllByNameStartingWith(String name);
+    List<Artist> findAllByNameStartingWithIgnoreCase(String name);
     Artist findArtistByName(String name);
 }

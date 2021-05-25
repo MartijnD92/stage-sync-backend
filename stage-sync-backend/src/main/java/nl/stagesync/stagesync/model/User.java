@@ -1,6 +1,7 @@
 package nl.stagesync.stagesync.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(
-            strategy= GenerationType.AUTO,
+            strategy= GenerationType.IDENTITY,
             generator="native"
     )
     @GenericGenerator(
@@ -29,6 +30,10 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    @Column
+    @JsonProperty("profile_picture_url")
+    private String profilePicture;
 
     @ManyToMany
     @JoinTable (name = "user_role",
@@ -101,6 +106,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public Set<Role> getRoles() {

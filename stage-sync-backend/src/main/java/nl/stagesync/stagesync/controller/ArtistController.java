@@ -7,11 +7,9 @@ import nl.stagesync.stagesync.service.ArtistService;
 import nl.stagesync.stagesync.service.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
@@ -21,7 +19,6 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api")
 public class ArtistController {
-
 
     private ArtistService artistService;
     private RiderService riderService;
@@ -64,8 +61,7 @@ public class ArtistController {
     }
 
     @PostMapping("/artists")
-//    public ResponseEntity<MessageResponse> createArtist(@RequestPart("rider") MultipartFile[] riders , @RequestPart("artistDetails") CreateArtistRequest createArtistRequest, Principal principal) throws NoSuchAlgorithmException {
-    public ResponseEntity<MessageResponse> createArtist(@RequestBody CreateArtistRequest createArtistRequest, Principal principal){
+    public ResponseEntity<MessageResponse> createArtist(@RequestBody CreateArtistRequest createArtistRequest, Principal principal) {
         return artistService.createArtist(createArtistRequest, principal);
     }
 

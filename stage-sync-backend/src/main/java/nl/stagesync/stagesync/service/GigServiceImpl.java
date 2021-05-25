@@ -16,10 +16,6 @@ import java.util.Optional;
 @Service
 public class GigServiceImpl implements GigService {
 
-
-    private static final Logger LOG = LoggerFactory.getLogger(GigServiceImpl.class);
-
-
     private GigRepository gigRepository;
 
     @Autowired
@@ -67,10 +63,6 @@ public class GigServiceImpl implements GigService {
                 createGigRequest.getInvoiceStatus(),
                 createGigRequest.getArtist()
         );
-
-        String artistName = createGigRequest.getArtist().getName();
-        gig.setArtistName(artistName);
-        LOG.info(gig.getArtistName());
 
         gigRepository.save(gig);
 

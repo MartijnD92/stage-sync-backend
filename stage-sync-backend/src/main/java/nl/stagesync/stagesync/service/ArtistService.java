@@ -16,7 +16,6 @@ public interface ArtistService {
     Set<Artist> getAllArtists(Principal principal);
     Artist getArtistById(long id);
     List<Artist> getArtistsNameStartsWith(String name);
-//    ResponseEntity<MessageResponse> createArtist(MultipartFile[] riders, CreateArtistRequest createArtistRequest, Principal principal) throws NoSuchAlgorithmException;
     ResponseEntity<MessageResponse> createArtist(CreateArtistRequest createArtistRequest, Principal principal);
     void deleteById(long id);
 }

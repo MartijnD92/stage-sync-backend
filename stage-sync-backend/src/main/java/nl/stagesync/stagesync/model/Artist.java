@@ -27,6 +27,9 @@ public class Artist {
     @Column(name = "has_sound_engineer")
     private boolean hasSoundEngineer;
 
+    @Column
+    private String bio;
+
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
@@ -50,28 +53,15 @@ public class Artist {
     @JsonIgnore
     private Set<User> users;
 
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", genre='" + genre + '\'' +
-                ", price=" + price +
-                ", hasSoundEngineer=" + hasSoundEngineer +
-                ", riders=" + riders +
-                ", gigs=" + gigs +
-                ", users=" + users +
-                '}';
-    }
-
     public Artist() {
     }
 
-    public Artist(String name, String genre, int price, boolean hasSoundEngineer, Set<User> users) {
+    public Artist(String name, String genre, int price, boolean hasSoundEngineer,  String bio, Set<User> users) {
         this.name = name;
         this.genre = genre;
         this.price = price;
         this.hasSoundEngineer = hasSoundEngineer;
+        this.bio = bio;
         this.users = users;
     }
 
@@ -105,6 +95,14 @@ public class Artist {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public List<Gig> getGigs() {

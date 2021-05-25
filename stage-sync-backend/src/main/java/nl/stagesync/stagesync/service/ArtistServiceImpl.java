@@ -59,11 +59,10 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public List<Artist> getArtistsNameStartsWith(String name) {
-        return artistRepository.findAllByNameStartingWith(name);
+        return artistRepository.findAllByNameStartingWithIgnoreCase(name);
     }
 
         @Override
-//    public ResponseEntity<MessageResponse> createArtist(MultipartFile[] riders, CreateArtistRequest createArtistRequest, Principal principal) throws NoSuchAlgorithmException {
     public ResponseEntity<MessageResponse> createArtist(CreateArtistRequest createArtistRequest, Principal principal) {
 
         User currentUser = userService.getUserByUsername(principal.getName());
@@ -75,12 +74,12 @@ public class ArtistServiceImpl implements ArtistService {
                     createArtistRequest.getGenre(),
                     createArtistRequest.getPrice(),
                     createArtistRequest.hasSoundEngineer(),
+                    createArtistRequest.getBio(),
                     createArtistRequest.getUsers()
             );
         } else {
             artist = artistRepository.findArtistByName(createArtistRequest.getName());
         }
-
 
         Set<User> users = new HashSet<>();
         if (artist.getUsers() != null) {
@@ -89,13 +88,6 @@ public class ArtistServiceImpl implements ArtistService {
         users.add(currentUser);
         artist.setUsers(users);
 
-//        riderService.addRiders(riders);
-//        List<Rider> allRiders = new ArrayList<>();
-//        if (artist.getRiders() != null) {
-//            allRiders.addAll(artist.getRiders());
-//        }
-//        allRiders.addAll(riderService.getAllRidersByArtistName(artist.getName()));
-//        artist.setRiders(allRiders);
         artistRepository.save(artist);
 
         return ResponseEntity.ok(new MessageResponse("Artist created successfully!"));

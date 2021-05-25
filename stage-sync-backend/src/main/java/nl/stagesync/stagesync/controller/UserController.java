@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.Collection;
 
 
@@ -32,6 +35,17 @@ public class UserController {
     @PreAuthorize("#username == authentication.principal.username")
     public ResponseEntity<Object> getUser(@PathVariable String username) {
         return ResponseEntity.ok().body(userService.getUserByUsername(username));
+    }
+
+    @PostMapping("/user/profilepicture")
+    public ResponseEntity<Object> setProfilePicture( @RequestParam("file") MultipartFile file, Principal principal) throws IOException {
+        userService.uploadProfilePicture(file, principal);
+        return ResponseEntity.ok().body("User profile picture updated!");
+    }
+
+    @GetMapping("/user/profilepicture")
+    public ResponseEntity<Object> getProfilePicture(Principal principal) throws IOException {
+       return ResponseEntity.ok().body(userService.getProfilePicture(principal));
     }
 
 
