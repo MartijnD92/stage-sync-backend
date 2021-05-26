@@ -10,7 +10,7 @@ public interface GigRepository extends JpaRepository<Gig, Long> {
 
     List<Gig> findAllByVenueAndArtist(String venue, String artist);
     List<Gig> findAllByVenue(String venue);
-    List<Gig> findAllByArtistName(String artist);
+    List<Gig> findAllByArtistNameStartingWithIgnoreCase(String artist);
 
 
 }

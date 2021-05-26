@@ -28,7 +28,7 @@ public class GigController {
         return ResponseEntity.ok(gigService.getGigs());
     }
 
-    @GetMapping("/gigs/artists/{artist}")
+    @GetMapping("/gigs/artist/{artist}")
     public ResponseEntity<Object> findGigsByArtist(@PathVariable("artist") String artist) {
         return ResponseEntity.ok(gigService.getGigsByArtistName(artist));
     }

@@ -55,7 +55,18 @@ public class ArtistServiceImpl implements ArtistService {
             throw new RecordNotFoundException("No artist with id " + id);
         }
         return artist.get();
-     }
+    }
+
+
+    @Override
+    public Artist getArtistByName(String name) {
+        Optional<Artist> artist = artistRepository.findByName(name);
+        if (artist.isEmpty()) {
+            throw new RecordNotFoundException("No artist with name " + name);
+        }
+        return artist.get();
+    }
+
 
     @Override
     public List<Artist> getArtistsNameStartsWith(String name) {
@@ -68,7 +79,7 @@ public class ArtistServiceImpl implements ArtistService {
         User currentUser = userService.getUserByUsername(principal.getName());
 
         Artist artist;
-        if (artistRepository.findArtistByName(createArtistRequest.getName()) == null) {
+        if (getArtistByName(createArtistRequest.getName()) == null) {
             artist = new Artist(
                     createArtistRequest.getName(),
                     createArtistRequest.getGenre(),
@@ -78,7 +89,7 @@ public class ArtistServiceImpl implements ArtistService {
                     createArtistRequest.getUsers()
             );
         } else {
-            artist = artistRepository.findArtistByName(createArtistRequest.getName());
+            artist = getArtistByName(createArtistRequest.getName());
         }
 
         Set<User> users = new HashSet<>();

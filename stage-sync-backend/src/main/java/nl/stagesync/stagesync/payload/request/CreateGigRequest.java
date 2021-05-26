@@ -3,6 +3,7 @@ package nl.stagesync.stagesync.payload.request;
 import nl.stagesync.stagesync.model.Artist;
 import nl.stagesync.stagesync.model.EConfirmationStatus;
 import nl.stagesync.stagesync.model.EInvoiceStatus;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -25,6 +26,9 @@ public class CreateGigRequest {
     @NotBlank
     private LocalDateTime date;
 
+    @NotBlank
+    private String artistName;
+
     private int fee;
 
     private float duration;
@@ -39,7 +43,6 @@ public class CreateGigRequest {
 
     private EInvoiceStatus invoiceStatus;
 
-    @NotBlank
     private Artist artist;
 
     public String getName() {
@@ -144,5 +147,13 @@ public class CreateGigRequest {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }

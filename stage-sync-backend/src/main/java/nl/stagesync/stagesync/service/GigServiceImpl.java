@@ -1,9 +1,11 @@
 package nl.stagesync.stagesync.service;
 
 import nl.stagesync.stagesync.exception.RecordNotFoundException;
+import nl.stagesync.stagesync.model.Artist;
 import nl.stagesync.stagesync.model.Gig;
 import nl.stagesync.stagesync.payload.request.CreateGigRequest;
 import nl.stagesync.stagesync.payload.response.MessageResponse;
+import nl.stagesync.stagesync.repository.ArtistRepository;
 import nl.stagesync.stagesync.repository.GigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +19,16 @@ import java.util.Optional;
 public class GigServiceImpl implements GigService {
 
     private GigRepository gigRepository;
+    private ArtistServiceImpl artistService;
 
     @Autowired
     public void setGigRepository(GigRepository gigRepository) {
         this.gigRepository = gigRepository;
+    }
+
+    @Autowired
+    public void setArtistService(ArtistServiceImpl artistService) {
+        this.artistService = artistService;
     }
 
     @Override
@@ -39,7 +47,7 @@ public class GigServiceImpl implements GigService {
 
     @Override
     public List<Gig> getGigsByArtistName(String artist) {
-        return gigRepository.findAllByArtistName(artist);
+        return gigRepository.findAllByArtistNameStartingWithIgnoreCase(artist);
     }
 
     @Override
@@ -61,8 +69,11 @@ public class GigServiceImpl implements GigService {
                 createGigRequest.getTicketsTotal(),
                 createGigRequest.getConfirmationStatus(),
                 createGigRequest.getInvoiceStatus(),
-                createGigRequest.getArtist()
+                createGigRequest.getArtistName()
         );
+
+        Artist artist = artistService.getArtistByName(gig.getArtistName());
+        gig.setArtist(artist);
 
         gigRepository.save(gig);
 

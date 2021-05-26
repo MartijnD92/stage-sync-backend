@@ -34,6 +34,10 @@ public class Gig {
     @Column
     private float duration;
 
+    // Separate artist name column is necessary to show name in results
+    @Column
+    private String artistName;
+
     @Column(name = "tickets_total")
     private int ticketsTotal;
 
@@ -61,7 +65,7 @@ public class Gig {
     public Gig() {
     }
 
-    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, int ticketsTotal, EConfirmationStatus confirmationStatus, EInvoiceStatus invoiceStatus, Artist artist) {
+    public Gig(String name, String venue, String room, String location, LocalDateTime date, int fee, float duration, int ticketsTotal, EConfirmationStatus confirmationStatus, EInvoiceStatus invoiceStatus, String artistName) {
         this.name = name;
         this.venue = venue;
         this.room = room;
@@ -69,9 +73,10 @@ public class Gig {
         this.date = date;
         this.fee = fee;
         this.duration = duration;
+        this.ticketsTotal = ticketsTotal;
         this.confirmationStatus = confirmationStatus;
         this.invoiceStatus = invoiceStatus;
-        this.artist = artist;
+        this.artistName = artistName;
     }
 
     public long getId() {
@@ -184,5 +189,13 @@ public class Gig {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }

@@ -27,14 +27,20 @@ public class UserController {
 
     @GetMapping("/allusers")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Collection<User> userAccess() {
-        return userService.getAllUsers();
+    public ResponseEntity<Object> userAccess() {
+        return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
     @GetMapping("/user/{username}")
     @PreAuthorize("#username == authentication.principal.username")
     public ResponseEntity<Object> getUser(@PathVariable String username) {
         return ResponseEntity.ok().body(userService.getUserByUsername(username));
+    }
+
+    @GetMapping("/user/{username}/details")
+    @PreAuthorize("#username == authentication.principal.username")
+    public ResponseEntity<Object> getUserDetails(@PathVariable String username) {
+        return ResponseEntity.ok().body(userService.getUserDetailsByUsername(username));
     }
 
     @PostMapping("/user/profilepicture")

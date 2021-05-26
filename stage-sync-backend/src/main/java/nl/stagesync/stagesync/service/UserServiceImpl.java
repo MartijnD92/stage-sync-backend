@@ -15,8 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.Base64;
-import java.util.Collection;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,6 +38,19 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         if (!userRepository.existsByUsername(username)) throw new RecordNotFoundException();
         return userRepository.findByUsername(username).get();
+    }
+
+    @Override
+    public Map<String, String> getUserDetailsByUsername(String username) {
+        if (!userRepository.existsByUsername(username)) throw new RecordNotFoundException();
+
+        User user = userRepository.findByUsername(username).get();
+        Map<String, String> userDetails = new HashMap<>();
+        userDetails.put("username", user.getUsername());
+        userDetails.put("firstName", user.getFirstName());
+        userDetails.put("lastName", user.getLastName());
+        userDetails.put("email", user.getEmail());
+        return userDetails;
     }
 
     @Override
