@@ -81,6 +81,12 @@ public class GigServiceImpl implements GigService {
     }
 
     @Override
+    public boolean existsById(long id) {
+        return gigRepository.existsById(id);
+    }
+
+
+    @Override
     public void deleteById(long id) {
         gigRepository.deleteById(id);
     }

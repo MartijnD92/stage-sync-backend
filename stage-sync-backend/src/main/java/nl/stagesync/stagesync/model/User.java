@@ -42,7 +42,7 @@ public class User {
     private Set<Role> roles;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "users"
     )

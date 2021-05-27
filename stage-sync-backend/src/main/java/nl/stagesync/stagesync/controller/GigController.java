@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin
@@ -43,10 +45,20 @@ public class GigController {
         return gigService.createGig(createGigRequest);
     }
 
-    @DeleteMapping("/gigs/{id}")
+    @DeleteMapping("/gigs/gig/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable long id) {
         gigService.deleteById(id);
-        return new ResponseEntity<>("Gig deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Gig has been deleted", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/gigs/{ids}")
+    public ResponseEntity<Object> deleteGigByIds(@PathVariable("ids") List<String> ids) {
+        ids.forEach(id -> {
+            if (gigService.existsById(Integer.parseInt(id))) {
+                gigService.deleteById(Integer.parseInt(id));
+            }
+        });
+        return new ResponseEntity<>("Gigs have been deleted", HttpStatus.OK);
     }
 
 }

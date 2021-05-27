@@ -1,5 +1,6 @@
 package nl.stagesync.stagesync.service;
 
+import nl.stagesync.stagesync.controller.ArtistController;
 import nl.stagesync.stagesync.exception.NotAuthorizedException;
 import nl.stagesync.stagesync.exception.RecordNotFoundException;
 import nl.stagesync.stagesync.model.Artist;
@@ -9,6 +10,8 @@ import nl.stagesync.stagesync.payload.request.CreateArtistRequest;
 import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.repository.ArtistRepository;
 import nl.stagesync.stagesync.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,9 @@ import java.util.*;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ArtistServiceImpl.class);
+
 
     private ArtistRepository artistRepository;
     private UserServiceImpl userService;
@@ -44,6 +50,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Set<Artist> getAllArtists(Principal principal) {
+        if (principal.getName() == null) throw new NotAuthorizedException();
         User currentUser = userService.getUserByUsername(principal.getName());
         return currentUser.getArtists();
     }
@@ -61,6 +68,7 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public Artist getArtistByName(String name) {
         Optional<Artist> artist = artistRepository.findByName(name);
+        LOG.info("hier ook nog???");
         if (artist.isEmpty()) {
             throw new RecordNotFoundException("No artist with name " + name);
         }
@@ -74,12 +82,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
         @Override
-    public ResponseEntity<MessageResponse> createArtist(CreateArtistRequest createArtistRequest, Principal principal) {
+    public void createArtist(CreateArtistRequest createArtistRequest, Principal principal) {
 
         User currentUser = userService.getUserByUsername(principal.getName());
 
         Artist artist;
-        if (getArtistByName(createArtistRequest.getName()) == null) {
+        if (artistRepository.findByName(createArtistRequest.getName()).isEmpty()) {
             artist = new Artist(
                     createArtistRequest.getName(),
                     createArtistRequest.getGenre(),
@@ -88,7 +96,8 @@ public class ArtistServiceImpl implements ArtistService {
                     createArtistRequest.getBio(),
                     createArtistRequest.getUsers()
             );
-        } else {
+        }
+        else {
             artist = getArtistByName(createArtistRequest.getName());
         }
 
@@ -100,8 +109,6 @@ public class ArtistServiceImpl implements ArtistService {
         artist.setUsers(users);
 
         artistRepository.save(artist);
-
-        return ResponseEntity.ok(new MessageResponse("Artist created successfully!"));
     }
 
     @Override

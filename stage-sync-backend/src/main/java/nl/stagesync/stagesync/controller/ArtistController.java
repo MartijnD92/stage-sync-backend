@@ -5,6 +5,9 @@ import nl.stagesync.stagesync.payload.request.CreateArtistRequest;
 import nl.stagesync.stagesync.payload.response.MessageResponse;
 import nl.stagesync.stagesync.service.ArtistService;
 import nl.stagesync.stagesync.service.RiderService;
+import nl.stagesync.stagesync.service.security.jwt.AuthTokenFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,9 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api")
 public class ArtistController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ArtistController.class);
+
 
     private ArtistService artistService;
     private RiderService riderService;
@@ -61,13 +67,14 @@ public class ArtistController {
     }
 
     @PostMapping("/artists")
-    public ResponseEntity<MessageResponse> createArtist(@RequestBody CreateArtistRequest createArtistRequest, Principal principal) {
-        return artistService.createArtist(createArtistRequest, principal);
+    public ResponseEntity<MessageResponse> createArtist(@RequestBody CreateArtistRequest createArtistRequest, Principal principal) throws IOException {
+        artistService.createArtist(createArtistRequest, principal);
+        return ResponseEntity.ok(new MessageResponse("Artist created successfully!"));
     }
 
 
-    @DeleteMapping("/artists/{id}")
-    public ResponseEntity<Object> deleteArtist(@PathVariable("id") long id) {
+    @DeleteMapping("/artists/artist/{id}")
+    public ResponseEntity<Object> deleteArtistById(@PathVariable("id") Long id) {
         artistService.deleteById(id);
         return new ResponseEntity<>("Artist deleted", HttpStatus.OK);
     }

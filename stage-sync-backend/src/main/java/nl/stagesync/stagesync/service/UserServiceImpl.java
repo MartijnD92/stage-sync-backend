@@ -1,11 +1,17 @@
 package nl.stagesync.stagesync.service;
 
+import nl.stagesync.stagesync.exception.NotAuthorizedException;
 import nl.stagesync.stagesync.exception.RecordNotFoundException;
 import nl.stagesync.stagesync.model.User;
+import nl.stagesync.stagesync.payload.request.UpdateUserRequest;
 import nl.stagesync.stagesync.repository.UserRepository;
+import nl.stagesync.stagesync.service.security.jwt.AuthEntryPointJwt;
 import nl.stagesync.stagesync.utils.FileUploadUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +26,12 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AuthEntryPointJwt.class);
+
+
     private UserRepository userRepository;
+    private PasswordEncoder encoder;
+
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -51,6 +62,32 @@ public class UserServiceImpl implements UserService {
         userDetails.put("lastName", user.getLastName());
         userDetails.put("email", user.getEmail());
         return userDetails;
+    }
+
+    @Override
+    public void updateUserByUsername(String username, Principal principal, UpdateUserRequest userRequest) {
+        if (!userRepository.existsByUsername(username)) throw new RecordNotFoundException();
+        User user = userRepository.findByUsername(username).get();
+
+        try {
+            if (!userRequest.getPassword().isEmpty() && !userRequest.getPasswordConfirmation().isEmpty()) {
+                user.setPassword(encoder.encode(userRequest.getPassword()));
+            }
+        }
+        catch(NullPointerException e) {
+            user.setPassword(user.getPassword());
+        }
+
+        if (!userRequest.getEmail().isEmpty()) {
+            user.setEmail(userRequest.getEmail());
+        }
+        if (!userRequest.getFirstName().isEmpty()) {
+            user.setFirstName(userRequest.getFirstName());
+        }
+        if (!userRequest.getLastName().isEmpty()) {
+            user.setLastName(userRequest.getLastName());
+        }
+        userRepository.save(user);
     }
 
     @Override

@@ -13,6 +13,7 @@ public interface GigService {
     List<Gig> getGigsByArtistName(String artist);
     List<Gig> getGigsByVenue(String venue);
     ResponseEntity<MessageResponse> createGig(CreateGigRequest createGigRequest);
+    boolean existsById(long id);
     void deleteById(long id);
 
 }
