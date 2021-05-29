@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
-    List<Artist> findAllByNameStartingWithIgnoreCase(String name);
+    List<Artist> findByNameContainingIgnoreCase(String name);
     Optional<Artist> findByName(String name);
 }

@@ -1,10 +1,7 @@
 package nl.stagesync.stagesync.controller;
 
 
-import nl.stagesync.stagesync.exception.BadRequestException;
-import nl.stagesync.stagesync.exception.NotAuthorizedException;
-import nl.stagesync.stagesync.exception.RecordNotFoundException;
-import nl.stagesync.stagesync.exception.UsernameNotFoundException;
+import nl.stagesync.stagesync.exception.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,24 +17,32 @@ public class ExceptionController {
 
     @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> exception(RecordNotFoundException exception) {
-
-        return ResponseEntity.notFound().build();
+        String message = exception.getMessage();
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = BadRequestException.class)
     public ResponseEntity<Object> exception(BadRequestException exception) {
-        return ResponseEntity.badRequest().build();
+        String message = exception.getMessage();
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = UsernameNotFoundException.class)
     public ResponseEntity<Object> exception(UsernameNotFoundException exception) {
-        return ResponseEntity.badRequest().build();
+        String message = exception.getMessage();
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = NotAuthorizedException.class)
     public ResponseEntity<Object> exception(NotAuthorizedException exception) {
         String message = exception.getMessage();
         return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(value = ForbiddenException.class)
+    public ResponseEntity<Object> exception(ForbiddenException exception) {
+        String message = exception.getMessage();
+        return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
     }
 
 }

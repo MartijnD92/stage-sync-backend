@@ -45,7 +45,7 @@ public class Artist {
             mappedBy = "artist"
     )
     @JsonIgnoreProperties("artist")
-    private List<Gig> gigs;
+    private Set<Gig> gigs;
 
     @ManyToMany
     @JoinTable (name = "artist_user",
@@ -106,11 +106,11 @@ public class Artist {
         this.bio = bio;
     }
 
-    public List<Gig> getGigs() {
+    public Set<Gig> getGigs() {
         return gigs;
     }
 
-    public void setGigs(List<Gig> gigs) {
+    public void setGigs(Set<Gig> gigs) {
         this.gigs = gigs;
     }
 

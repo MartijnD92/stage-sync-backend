@@ -19,8 +19,8 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@CrossOrigin
-@RequestMapping("/api")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api/artists")
 public class ArtistController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArtistController.class);
@@ -40,18 +40,18 @@ public class ArtistController {
     }
 
 
-    @GetMapping("/artists")
+    @GetMapping
     public ResponseEntity<Object> getAllArtists(Principal principal) {
         return ResponseEntity.ok(artistService.getAllArtists(principal));
     }
 
-    @GetMapping("/artists/artist/{name}")
+    @GetMapping("/artist/{name}")
     public ResponseEntity<Object> findArtistsByName(@PathVariable("name") String name) {
-        List<Artist> artists = artistService.getArtistsNameStartsWith(name);
+        List<Artist> artists = artistService.getArtistByNameEager(name);
         return ResponseEntity.ok(artists);
     }
 
-    @GetMapping("/artists/riders")
+    @GetMapping("/riders")
     public ResponseEntity<Object> getAllRiders() {
         return ResponseEntity.ok(riderService.getAllRiders());
     }
@@ -61,19 +61,19 @@ public class ArtistController {
         riderService.addRiders(multipartFiles);
     }
 
-    @GetMapping("/artists/id/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Object> getArtistById(@PathVariable("id") long id) {
         return ResponseEntity.ok(artistService.getArtistById(id));
     }
 
-    @PostMapping("/artists")
+    @PostMapping
     public ResponseEntity<MessageResponse> createArtist(@RequestBody CreateArtistRequest createArtistRequest, Principal principal) throws IOException {
         artistService.createArtist(createArtistRequest, principal);
         return ResponseEntity.ok(new MessageResponse("Artist created successfully!"));
     }
 
 
-    @DeleteMapping("/artists/artist/{id}")
+    @DeleteMapping("/artist/{id}")
     public ResponseEntity<Object> deleteArtistById(@PathVariable("id") Long id) {
         artistService.deleteById(id);
         return new ResponseEntity<>("Artist deleted", HttpStatus.OK);

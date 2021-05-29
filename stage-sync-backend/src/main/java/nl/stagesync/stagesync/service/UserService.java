@@ -2,9 +2,9 @@ package nl.stagesync.stagesync.service;
 
 import nl.stagesync.stagesync.model.User;
 import nl.stagesync.stagesync.payload.request.UpdateUserRequest;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Collection;
@@ -17,4 +17,5 @@ public interface UserService {
     void uploadProfilePicture(MultipartFile multipartFile, Principal principal) throws IOException;
     String getProfilePicture(Principal principal) throws IOException;
     Map<String, String> getUserDetailsByUsername(String username);
+    User getCurrentUser(Principal principal);
 }

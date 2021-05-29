@@ -34,7 +34,7 @@ public class Gig {
     @Column
     private float duration;
 
-    // Separate artist name column is necessary to show name in results
+    // Separate artist name column is necessary to show name in gig results
     @Column
     private String artistName;
 
@@ -163,7 +163,7 @@ public class Gig {
         return confirmationStatus;
     }
 
-    public void setconfirmationStatus(EConfirmationStatus confirmationStatus) {
+    public void setConfirmationStatus(EConfirmationStatus confirmationStatus) {
         this.confirmationStatus = confirmationStatus;
     }
 

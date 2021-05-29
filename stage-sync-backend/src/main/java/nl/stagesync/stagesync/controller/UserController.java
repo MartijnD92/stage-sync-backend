@@ -47,7 +47,7 @@ public class UserController {
     @PreAuthorize("#username == authentication.principal.username")
     public ResponseEntity<Object> updateUser(@PathVariable String username, Principal principal, @RequestBody UpdateUserRequest updateRequest) {
         userService.updateUserByUsername(username, principal, updateRequest);
-        return ResponseEntity.ok().body(userService.getUserByUsername(username));
+        return ResponseEntity.ok().body(new MessageResponse("User details updated successfully!"));
 
     }
 

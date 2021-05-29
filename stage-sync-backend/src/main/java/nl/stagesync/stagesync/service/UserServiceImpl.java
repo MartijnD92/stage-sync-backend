@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,9 +26,6 @@ import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AuthEntryPointJwt.class);
-
 
     private UserRepository userRepository;
     private PasswordEncoder encoder;
@@ -114,6 +112,12 @@ public class UserServiceImpl implements UserService {
         if(path.endsWith("null")) path = Paths.get("profilepictures/default.jpg");
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
         return Base64.getEncoder().withoutPadding().encodeToString(resource.getByteArray());
+    }
+
+    @Override
+    public User getCurrentUser(Principal principal) {
+        if (principal.getName() == null) throw new NotAuthorizedException();
+        return getUserByUsername(principal.getName());
     }
 
 }
