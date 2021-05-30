@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/allusers")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> userAccess() {
         return ResponseEntity.ok().body(userService.getAllUsers());
     }
@@ -43,15 +43,14 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUserDetailsByUsername(username));
     }
 
-    @PatchMapping("/user/{username}/update")
+    @PatchMapping("/user/{username}/details/update")
     @PreAuthorize("#username == authentication.principal.username")
     public ResponseEntity<Object> updateUser(@PathVariable String username, Principal principal, @RequestBody UpdateUserRequest updateRequest) {
         userService.updateUserByUsername(username, principal, updateRequest);
         return ResponseEntity.ok().body(new MessageResponse("User details updated successfully!"));
-
     }
 
-    @PutMapping("/user/profilepicture")
+    @PostMapping("/user/profilepicture")
     public ResponseEntity<Object> setProfilePicture( @RequestParam("file") MultipartFile file, Principal principal) throws IOException {
         userService.uploadProfilePicture(file, principal);
         return ResponseEntity.ok().body("User profile picture updated!");

@@ -45,6 +45,7 @@ public class GigController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> getGigs() {
         return ResponseEntity.ok(gigService.getGigs());
     }

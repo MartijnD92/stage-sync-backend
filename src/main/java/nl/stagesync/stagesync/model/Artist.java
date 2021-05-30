@@ -33,14 +33,6 @@ public class Artist {
 
     @OneToMany(
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "artist"
-    )
-    @JsonIgnoreProperties("artist")
-    private List<Rider> riders;
-
-    @OneToMany(
-            fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "artist"
     )
@@ -128,13 +120,5 @@ public class Artist {
 
     public void setHasSoundEngineer(boolean hasSoundEngineer) {
         this.hasSoundEngineer = hasSoundEngineer;
-    }
-
-    public List<Rider> getRiders() {
-        return riders;
-    }
-
-    public void setRiders(List<Rider> riders) {
-        this.riders = riders;
     }
 }

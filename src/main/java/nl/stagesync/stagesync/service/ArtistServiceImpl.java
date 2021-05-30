@@ -16,7 +16,6 @@ public class ArtistServiceImpl implements ArtistService {
 
     private ArtistRepository artistRepository;
     private UserServiceImpl userService;
-    private RiderServiceImpl riderService;
 
     @Autowired
     public void setArtistRepository(ArtistRepository artistRepository) {
@@ -26,11 +25,6 @@ public class ArtistServiceImpl implements ArtistService {
     @Autowired
     public void setUserService(UserServiceImpl userService) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setRiderService(RiderServiceImpl riderService) {
-        this.riderService = riderService;
     }
 
     @Override

@@ -6,6 +6,7 @@ import nl.stagesync.stagesync.model.User;
 import nl.stagesync.stagesync.payload.request.UpdateUserRequest;
 import nl.stagesync.stagesync.repository.UserRepository;
 import nl.stagesync.stagesync.service.security.jwt.AuthEntryPointJwt;
+import nl.stagesync.stagesync.service.security.jwt.JwtUtils;
 import nl.stagesync.stagesync.utils.FileUploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,14 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private PasswordEncoder encoder;
 
-
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setEncoder(PasswordEncoder encoder) {
+        this.encoder = encoder;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserByUsername(String username, Principal principal, UpdateUserRequest userRequest) {
-        if (!userRepository.existsByUsername(username)) throw new RecordNotFoundException();
+        if (!userRepository.existsByUsername(username)) throw new RecordNotFoundException("User " + username + " does not exist.");
         User user = userRepository.findByUsername(username).get();
 
         try {
