@@ -33,7 +33,7 @@ public class ArtistController {
 
     @GetMapping("/artist/{name}")
     public ResponseEntity<Object> findArtistsByName(@PathVariable("name") String name) {
-        List<Artist> artists = artistService.getArtistByNameEager(name);
+        List<Artist> artists = artistService.getArtistsByNameEager(name);
         return ResponseEntity.ok(artists);
     }
 

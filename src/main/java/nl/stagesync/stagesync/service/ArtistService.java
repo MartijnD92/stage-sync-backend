@@ -11,7 +11,7 @@ public interface ArtistService {
     Set<Artist> getAllArtists(Principal principal);
     Artist getArtistById(long id);
     Artist getArtistByName(String name);
-    List<Artist> getArtistByNameEager(String name);
+    List<Artist> getArtistsByNameEager(String name);
     void createArtist(CreateArtistRequest createArtistRequest, Principal principal);
     void deleteById(long id);
 }

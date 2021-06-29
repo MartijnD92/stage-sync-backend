@@ -52,12 +52,15 @@ public class GigController {
 
     @GetMapping("/{artist}")
     public ResponseEntity<Object> getGigsByQuery(@PathVariable("artist") String artist, Principal principal) {
-
         User currentUser = userService.getCurrentUser(principal);
         Set<Artist> currentUserArtists =  currentUser.getArtists();
-        for (Artist currentUserArtist : currentUserArtists) {
-            if (currentUserArtist.getName().equals(artist)) {
-                return ResponseEntity.ok(artistService.getArtistByNameEager(artist));
+
+        List<Artist> fetchedArtists = artistService.getArtistsByNameEager(artist);
+        for (Artist fetchedArtist : fetchedArtists) {
+           for (Artist currentUserArtist : currentUserArtists) {
+                if (currentUserArtist.getName().equalsIgnoreCase(fetchedArtist.getName())) {
+                    return ResponseEntity.ok(fetchedArtists);
+                }
             }
         }
         return new ResponseEntity<>("No gigs found for query: " + artist, HttpStatus.BAD_REQUEST);
